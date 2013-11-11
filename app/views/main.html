@@ -1,6 +1,11 @@
-<div class="hero-unit" ng-controller="BookChoiceCtrl">
-  <form ng-submit="AddBook()">
+<div class="hero-unit" ng-controller="BookShelfCtrl">
+  <form ng-submit="FetchISBN()">
     <input type="text" name="isbn" ng-model="isbn"/>
     <input type="submit" name="add" value="Add"/>
   </form>
+  <ul>
+  <li ng-repeat="book in books">
+    {{book.volumeInfo.title}}
+  </li>
+  </ul>
 </div>
