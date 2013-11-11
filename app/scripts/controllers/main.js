@@ -1,20 +1,41 @@
 'use strict';
+var book = angular.module('book');
 
-angular.module('book').
-  controller('BookController', ['$scope', 'alertService', 'googleBooks', function($scope, alertService, googleBooks) {
-    $scope.books = [];
-    $scope.AddBook = function() {
-      if (this.isbn) {
-        alertService.AddAlert('', 'woah');
-        var book = googleBooks.get({isbn: this.isbn});
-        $scope.books.push(book);
-      } else {
-        $scope.alerts.push({msg: "Please enter an ISBN to fetch."});
+var BookCtrl = book.controller('BookCtrl', ['$scope', function($scope) {}]);
+
+var BookChoiceCtrl = book.controller('BookChoiceCtrl', ['$http', '$scope', '$modal', '$log', 'alertService', function($http, $scope, $modal, $log, alertService) {
+  $scope.AddBook = function() {
+    $http({
+      url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.concat(this.isbn),
+      method: 'GET'
+    }).then(
+      // resolve
+      function(response) {
+        $log.log(this);
+        $log.log(response.data);
+        var result = response.data;
+        if ('items' in result) {
+          $modal.open({
+            templateUrl: 'views/book_choice.html'
+        });
+        } else {
+          alertService.AddAlert('warning', "Couldn\'t find the isbn!");
+        }
+      },
+      // reject
+      function(reason) {
+        alertService.AddAlert('error', reason);
       }
-    };
-  }]).
-  controller('AlertController', ['$scope', 'alertService', function($scope, alertService) {
-    $scope.CloseAlert = function(index) {
-      alertService.CloseAlert(index);
-    };
-  }]);
+    );
+  };
+}]);
+
+var BookModalCtrl = book.controller('BookModalCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+
+}]);
+
+var AlertController = book.controller('AlertController', ['$scope', 'alertService', function($scope, alertService) {
+  $scope.CloseAlert = function(index) {
+    alertService.CloseAlert(index);
+  };
+}]);

@@ -2,7 +2,6 @@
 
 angular.module('book', [
   'ngResource',
-  'book.google-books',
   'book.alert',
   'ui',
   'ui.bootstrap'
@@ -11,7 +10,7 @@ angular.module('book', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'BookController'
+        controller: 'BookCtrl'
       })
       .otherwise({
         redirectTo: '/'

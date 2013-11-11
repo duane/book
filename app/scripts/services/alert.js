@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('book.alert', []).
   factory('alertService', ['$rootScope', function($rootScope) {
     var alertService = {};

@@ -1,0 +1,14 @@
+<div class="modal-header">
+  Choose a book
+</div>
+<div class="modal-body book-choice-body">
+  <pre>{{this}}</pre>
+  <ul>
+    <li class="book" ng-repeat="book in books">
+      {{book.volumeInfo.title}}
+    </li>
+  </ul>
+</div>
+<div class="modal-footer">
+This is a footer.
+</div>

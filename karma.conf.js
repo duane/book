@@ -17,13 +17,13 @@ module.exports = function(config) {
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/scripts/*.js',
-      'app/scripts/**/*.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'app/scripts/**/*.js'
+      //'test/mock/**/*.js',
+      //'test/spec/**/*.js'
     ],
 
     // list of files / patterns to exclude
-    exclude: [],
+    exclude : ['app/bower_components/angular-scenario/angular-scenario.js'],
 
     // web server port
     port: 8080,

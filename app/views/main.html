@@ -1,5 +1,5 @@
-<div class="hero-unit">
-  <form ng-submit="AddBook()" ng-controller="BookController">
+<div class="hero-unit" ng-controller="BookChoiceCtrl">
+  <form ng-submit="AddBook()">
     <input type="text" name="isbn" ng-model="isbn"/>
     <input type="submit" name="add" value="Add"/>
   </form>
