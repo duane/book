@@ -3,8 +3,15 @@ var book = angular.module('book');
 
 var BookCtrl = book.controller('BookCtrl', angular.noop);
 
-book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $log, alertService) {
+book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $log, quickISBN, alertService) {
   $scope.books = [];
+  quickISBN.bulkFetch([
+    '9780605813311',
+    '9780345917430',
+    '9780316679299'
+  ]).then(function(books) {
+    $scope.books = books;
+  });
   $scope.FetchISBN = function() {
     $http({
       url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.concat(this.isbn),

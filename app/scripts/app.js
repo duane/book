@@ -2,7 +2,9 @@
 
 angular.module('book', [
   'ngResource',
+  'ngRoute',
   'book.alert',
+  'book.quickISBNFetch',
   'ui',
   'ui.bootstrap'
 ])
