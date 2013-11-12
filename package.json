@@ -41,9 +41,19 @@
     "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test"
-  }
+  },
+  "contributors": {
+    "name": "Duane R. Bailey",
+    "email": "bailey.d.r@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duane/book.git"
+  },
+  "description": "A simple webapp to manipulate books in angular",
+  "license": "MIT"
 }
