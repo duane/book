@@ -7,6 +7,7 @@ angular.module('book', [
   'ui.bootstrap',
   'book.alert',
   'book.quickISBNFetch',
+  'book.filters'
 ]).
 config(function ($routeProvider, $logProvider) {
     $routeProvider.when('/', {

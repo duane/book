@@ -4,29 +4,32 @@ var book = angular.module('book').controller('MainCtrl', angular.noop);
 
 book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, quickISBN, alertService) {
   $scope.books = [];
-  quickISBN.bulkFetch([
-    '9781429997041',
-    '9780345917430',
-    '9780316679299'
-  ]).then(function(books) {
-    for (var i = 0; i < books.length; i++) {
-      var info = books[i].volumeInfo;
-      var book = {
-        author: info.authors[0],
-        title: info.title,
-      };
+  $scope.BulkFetch = function() {
+    quickISBN.bulkFetch([
+      '9781429997041',
+      '9780345917430',
+      '9780316679299',
+      '9780872200142'
+    ]).then(function(books) {
+      for (var i = 0; i < books.length; i++) {
+        var info = books[i].volumeInfo;
+        var book = {
+          authors: info.authors,
+          title: info.title,
+        };
 
-      if ('imageLinks' in info) {
-        book.thumbnail = info.imageLinks.thumbnail;
+        if ('imageLinks' in info) {
+          book.thumbnail = info.imageLinks.thumbnail;
+        }
+
+        $scope.books.push(book);
       }
-
-      $scope.books.push(book);
-    }
-  });
+    });
+  };
 
   $scope.FetchISBN = function() {
     $http({
-      url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.concat(this.isbn),
+      url: 'https://www.googleapis.com/books/v1/volumes?key=AIzaSyDJKfcjr_IO7bfA9B5i9jRGhdiAeTL7yl4&q=isbn:'.concat(this.isbn),
       method: 'GET'
     }).then(
       // resolve
