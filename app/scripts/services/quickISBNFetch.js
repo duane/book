@@ -7,7 +7,7 @@ angular.module('book.quickISBNFetch', []).
         var deferred = $q.defer();
 
         $http({
-          url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.concat(isbn),
+          url: 'https://www.googleapis.com/books/v1/volumes?key=AIzaSyDJKfcjr_IO7bfA9B5i9jRGhdiAeTL7yl4&q=isbn:'.concat(isbn),
           method: 'GET'
         }).then(
           function(response) {
@@ -15,7 +15,7 @@ angular.module('book.quickISBNFetch', []).
             if ('items' in result) {
               deferred.resolve(result.items[0]);
             } else {
-              deferred.reject("Couldn\'t find the isbn!");
+              deferred.reject('Couldn\'t find the isbn!');
             }
           },
 

@@ -2,6 +2,10 @@
 
 var book = angular.module('book').controller('MainCtrl', angular.noop);
 
+function BookModalCtrl($scope, $modalInstance) {
+  $scope.modal = $modalInstance;
+}
+
 book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, quickISBN, alertService) {
   $scope.books = [];
   $scope.BulkFetch = function() {
@@ -51,7 +55,7 @@ book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, q
             }
           );
         } else {
-          alertService.AddAlert('warning', "Couldn't find the isbn!");
+          alertService.AddAlert('warning', 'Couldn\'t find the isbn!');
         }
       },
       // reject
@@ -66,8 +70,4 @@ function AlertController($scope, alertService) {
   $scope.CloseAlert = function(index) {
     alertService.CloseAlert(index);
   };
-}
-
-function BookModalCtrl($scope, $modalInstance) {
-  $scope.modal = $modalInstance;
 }

@@ -4,11 +4,11 @@ angular.module('book.filters', []).
   filter('anglicizeList', function ($interpolate, $log) {
     return function (input) {
       if (input instanceof Array) {
-        if (input.length == 0) {
-          return "";
-        } else if (input.length == 1) {
+        if (input.length === 0) {
+          return '';
+        } else if (input.length === 1) {
           return input[0];
-        } else if (input.length == 2) {
+        } else if (input.length === 2) {
           return $interpolate('{{first}} and {{second}}')({first: input[0], second: input[1]});
         } else {
           var buffer = input[0];

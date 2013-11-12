@@ -1,6 +1,6 @@
 {
-  "name": "test",
-  "version": "0.0.0",
+  "name": "book",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -36,6 +36,7 @@
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.4",
+    "karma-junit-reporter": "~0.1.0",
     "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {

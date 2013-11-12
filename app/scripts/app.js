@@ -9,7 +9,7 @@ angular.module('book', [
   'book.quickISBNFetch',
   'book.filters'
 ]).
-config(function ($routeProvider, $logProvider) {
+config(function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
