@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('book.quickISBNFetch', []).
-  factory('quickISBN', function quickISBN($http, $q, $log) {
+  factory('quickISBN', function quickISBN($http, $q) {
     return {
       fetch: function(isbn) {
         var deferred = $q.defer();
@@ -24,7 +24,6 @@ angular.module('book.quickISBNFetch', []).
           }
         );
 
-        $log.log(deferred);
         return deferred.promise;
       },
 
@@ -40,9 +39,7 @@ angular.module('book.quickISBNFetch', []).
           var promise2 = fetch(isbn).
           then(function(book) {
             books.push(book);
-          });
-          $log.log(promise2);
-          promise2['finally'](function() {
+          })['finally'](function() {
             finalized = finalized + 1;
             if (finalized >= total) {
               deferred.resolve(books);

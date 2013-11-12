@@ -3,9 +3,5 @@
     <input type="text" name="isbn" ng-model="isbn"/>
     <input type="submit" name="add" value="Add"/>
   </form>
-  <ul>
-  <li ng-repeat="book in books">
-    {{book.volumeInfo.title}}
-  </li>
-  </ul>
+  <book-display ng-repeat="book in books"></book-display>
 </div>

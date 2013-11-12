@@ -1,17 +1,29 @@
 'use strict';
-var book = angular.module('book');
 
-var BookCtrl = book.controller('BookCtrl', angular.noop);
+var book = angular.module('book').controller('MainCtrl', angular.noop);
 
-book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $log, quickISBN, alertService) {
+book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, quickISBN, alertService) {
   $scope.books = [];
   quickISBN.bulkFetch([
-    '9780605813311',
+    '9781429997041',
     '9780345917430',
     '9780316679299'
   ]).then(function(books) {
-    $scope.books = books;
+    for (var i = 0; i < books.length; i++) {
+      var info = books[i].volumeInfo;
+      var book = {
+        author: info.authors[0],
+        title: info.title,
+      };
+
+      if ('imageLinks' in info) {
+        book.thumbnail = info.imageLinks.thumbnail;
+      }
+
+      $scope.books.push(book);
+    }
   });
+
   $scope.FetchISBN = function() {
     $http({
       url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.concat(this.isbn),
@@ -36,7 +48,7 @@ book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $
             }
           );
         } else {
-          alertService.AddAlert('warning', "Couldn\'t find the isbn!");
+          alertService.AddAlert('warning', "Couldn't find the isbn!");
         }
       },
       // reject
@@ -47,11 +59,11 @@ book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $
   };
 });
 
-var AlertController = book.controller('AlertController', ['$scope', 'alertService', function($scope, alertService) {
+function AlertController($scope, alertService) {
   $scope.CloseAlert = function(index) {
     alertService.CloseAlert(index);
   };
-}]);
+}
 
 function BookModalCtrl($scope, $modalInstance) {
   $scope.modal = $modalInstance;
