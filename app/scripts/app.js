@@ -6,10 +6,14 @@ angular.module('book', [
   'ui',
   'ui.bootstrap',
   'book.alert',
-  'book.quickISBNFetch',
-  'book.filters'
+  'book.filters',
+  'book.isbnFetcher',
+  'book.googleFetcher'
 ]).
-config(function ($routeProvider) {
+config(function(isbnFetcherProvider) {
+  isbnFetcherProvider.fetcherBackendService('googleFetcher');
+}).
+config(function($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'

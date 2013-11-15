@@ -1,8 +1,4 @@
 <div class="hero-unit" ng-controller="BookShelfCtrl">
-  <form ng-submit="FetchISBN()">
-    <input type="text" name="isbn" ng-model="isbn"/>
-    <input type="submit" name="add" value="Add"/>
-  </form>
   <button class="btn btn-small" ng-click="BulkFetch()">Bulk Fetch</button>
   <book-display ng-repeat="book in books"></book-display>
 </div>
