@@ -8,13 +8,19 @@ function BookModalCtrl($scope, $modalInstance) {
 
 book.controller('BookShelfCtrl', function BookShelfCtrl($http, $scope, $modal, $log, isbnFetcher, alertService) {
   $scope.books = [];
+  $scope.responses = [];
   $scope.BulkFetch = function() {
     isbnFetcher.fetchBulk([
-      '9781429997041',
-      '9780345917430',
-      '9780316679299',
-      '9780872200142'
+      "9781429997041",
+      "9780316679299",
+      "9780141972060",
+      "9780872200142",
+      "9780316920049",
+      "9780345917430",
+      "9780321534965",
+      "9780141974101"
     ]).then(function(books) {
+      $scope.responses = books;
       $log.log(books);
       for (var i = 0; i < books.length; i++) {
         var info = books[i].volumeInfo;

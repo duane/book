@@ -8,10 +8,10 @@ angular.module('book', [
   'book.alert',
   'book.filters',
   'book.isbnFetcher',
-  'book.googleFetcher'
+  'book.mockFetcher'
 ]).
 config(function(isbnFetcherProvider) {
-  isbnFetcherProvider.fetcherBackendService('googleFetcher');
+  isbnFetcherProvider.fetcherBackendService('mockFetcher');
 }).
 config(function($routeProvider) {
     $routeProvider.when('/', {
