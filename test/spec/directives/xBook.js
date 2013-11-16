@@ -14,8 +14,13 @@ describe('Directive: xBook', function() {
     scope.$digest();
   }));
 
-  it('should have the title & authors', inject(function($log) {
-    debugger;
+  it('should apply the appropriate classes', function() {
+    expect(elm.hasClass('book'));
+    expect(elm.find('.book .title').length === 1);
+    expect(elm.find('.book .authors').length === 1);
+  });
+
+  it('should have the title & authors', function() {
     scope.$apply(function() {
       scope.book = {
         authors: [author],
@@ -23,10 +28,7 @@ describe('Directive: xBook', function() {
       };
     });
 
-    var title_ele = elm.find('.book .title');
-    var authors_ele = elm.find('.book .authors');
-
-    expect(title_ele.eq(0).text()).toBe(title);
-    expect(authors_ele.eq(0).text()).toBe(author);
-  }));
+    expect(elm.find('.book .title').text()).toBe(title);
+    expect(elm.find('.book .authors').text()).toBe(author);
+  });
 });
