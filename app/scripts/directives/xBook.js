@@ -1,15 +1,38 @@
 'use strict';
 
 angular.module('book').
-  directive('bookDisplay', [function() {
+  directive('bookDisplay', function(alertService) {
+    var defaultDisplayType = 'row';
+    var allowedTypes = [defaultDisplayType, 'block'];
     return {
-      transclude: true,
-      template: ['<div class="book">',
-                 '<img ng-src="{{book.thumbnail}}" ng-if="book.thumbnail"/>',
-                 '<div class="book-cover missing" ng-if="!book.thumbnail"></div>',
-                 '<span class="title">{{book.title}}<br/></span>',
-                 'by <span class="authors">{{book.authors|anglicizeList}}</span>',
-                 '</div>'].join('\n'),
+      templateUrl: 'views/xBook.html',
       restrict: 'AECM',
-      link: function(s, i, attr) {} };
-  }]);
+      scope: {
+        displayType: '=?',
+        isbn: '=',
+        book: '=?'
+      },
+      controller: ['$scope', 'isbnFetcher', function($scope, isbnFetcher) {
+        $scope.displayType = defaultDisplayType;
+        $scope.book = {}
+        $scope.getISBN = function(isbn) {
+          if (isbn) {
+            isbnFetcher.fetchFirst(isbn).then(function(book) {
+              $scope.book = book;
+            }, function(reason) {
+              alertService.AddAlert('error', 'Could not find ISBN '.concat($scope.isbn));
+            });
+          }
+        };
+      }],
+      link: function(scope, element, attrs) {
+        scope.getISBN(scope.isbn);
+        scope.$watch('isbn', scope.getISBN);
+        scope.$watch('displayType', function(newType, oldType) {
+          element.toggleClass('display-type-'.concat(oldType), false);
+          element.toggleClass('display-type-'.concat(newType), true);
+          element.attr('display-type', newType);
+        });
+      }
+    };
+  });

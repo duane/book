@@ -20,6 +20,7 @@ module.exports = function(config) {
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'app/views/*.html',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/spec/**/*.js'
@@ -28,8 +29,12 @@ module.exports = function(config) {
     // list of files / patterns to exclude
     exclude : ['app/bower_components/angular-scenario/angular-scenario.js'],
 
+    preprocessors: {
+      'app/views/*.html': 'html2js'
+    },
+
     // web server port
-    port: 8080,
+    port: 8767,
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG

@@ -11,7 +11,20 @@ angular.module('book.googleFetcher', []).
           method: 'GET'
         }).then(function(response) {
           if ('items' in response.data) {
-            deferred.resolve(response.data.items);
+            var books = [];
+            for (var i = 0; i < response.data.items.length; i++) {
+              var info = response.data.items[i].item.volumeInfo
+              var book = {
+                authors: info.authors,
+                title: info.title
+              };
+
+              if ('imageLinks' in info) {
+                book.thumbnail = info.imageLinks.thumbnail;
+              }
+              book.push(book);
+            }
+            deferred.resolve(books);
           } else {
             deferred.resolve([]);
           }

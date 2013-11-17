@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('book.mockFetcher', []).
-  factory('mockFetcher', ['$q', '$interpolate', function($q, $interpolate) {
+  factory('mockFetcher', ['$q', '$interpolate', '$httpBackend', function($q, $interpolate, $httpBackend) {
     var books = {
       "9780141972060": {
           "accessInfo": {
@@ -522,11 +522,31 @@ angular.module('book.mockFetcher', []).
       fetchMany: function(isbn) {
         var deferred = $q.defer();
         if (isbn in books) {
-          deferred.resolve([books[isbn]]);
+          var info = books[isbn].volumeInfo;
+          var book = {
+            authors: info.authors,
+            title: info.title
+          };
+
+          if ('imageLinks' in info) {
+            book.thumbnail = info.imageLinks.thumbnail;
+          }
+          deferred.resolve([book]);
         } else {
-          deferred.reject($interpolate('Don\'t know about isbn {{isbn}}!')({isbn: isbn}));
+          deferred.resolve([]);
         }
         return deferred.promise;
+      },
+      mountBackend: function() {
+        for (var isbn in books) {
+          $httpBackend.when('GET',
+                            'https://www.googleapis.com/books/v1/volumes?key=AIzaSyDJKfcjr_IO7bfA9B5i9jRGhdiAeTL7yl4&q=isbn:'.concat(isbn)).
+                       respond({
+                         kind: 'books#volume',
+                         totalItems: 1,
+                         items: [books[isbn]]
+                       });
+        }
       }
-    }
+    };
   }]);
