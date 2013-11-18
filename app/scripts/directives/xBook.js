@@ -8,9 +8,8 @@ angular.module('book').
       templateUrl: 'views/xBook.html',
       restrict: 'AECM',
       scope: {
-        displayType: '=?',
-        isbn: '=',
-        book: '=?'
+        displayType: '@',
+        isbn: '@'
       },
       controller: ['$scope', 'isbnFetcher', function($scope, isbnFetcher) {
         $scope.displayType = defaultDisplayType;

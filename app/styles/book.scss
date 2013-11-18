@@ -2,7 +2,7 @@ $bookRatio: 110/178;
 $bookHeight: 200px;
 $bookWidth: $bookHeight * $bookRatio;
 
-div.book-cover.missing {
+div.thumbnail-missing {
   width: $bookWidth;
   height: $bookHeight;
   background: #4444FF;

@@ -1,6 +1,6 @@
 <div class="book">
-  <img ng-src="{{book.thumbnail}}" ng-if="book.thumbnail"/>
-  <div class="book-cover missing" ng-if="!book.thumbnail"></div>
+  <img ng-src="{{book.thumbnail}}" class="thumbnail" ng-if="book.thumbnail"/>
+  <div class="thumbnail-missing" ng-if="!book.thumbnail"></div>
   <span class="title">{{book.title}}</span><br/>
   by <span class="authors">{{book.authors|anglicizeList}}</span>
 </div>

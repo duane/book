@@ -7,8 +7,7 @@ angular.module('book', [
   'ui.bootstrap',
   'book.alert',
   'book.filters',
-  'book.isbnFetcher',
-  'book.mockFetcher'
+  'book.isbnFetcher'
 ]).
 config(function(isbnFetcherProvider) {
   isbnFetcherProvider.fetcherBackendService('mockFetcher');
