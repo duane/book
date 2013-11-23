@@ -90,8 +90,6 @@ describe('Directive: xBook', function() {
       elm.isolateScope().isbn = no_thumbnail_isbn;
     });
 
-    console.log(elm);
-
     expect(elm.find('img.thumbnail').length).toBe(0);
     expect(elm.find('.thumbnail-missing').length).toBe(1);
   });
