@@ -83,14 +83,14 @@ describe('Directive: xBook', function() {
   });
 
   it('should have a displayed <img> tag iff it has a thumbnail', function() {
-    expect(elm.find('img.thumbnail').length).toBe(1);
+    expect(elm.find('img.book-thumbnail').length).toBe(1);
     expect(elm.find('.thumbnail-missing').length).toBe(0);
 
     elm.isolateScope().$apply(function() {
       elm.isolateScope().isbn = no_thumbnail_isbn;
     });
 
-    expect(elm.find('img.thumbnail').length).toBe(0);
+    expect(elm.find('img.book-thumbnail').length).toBe(0);
     expect(elm.find('.thumbnail-missing').length).toBe(1);
   });
 

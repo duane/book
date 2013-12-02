@@ -11,7 +11,7 @@ angular.module('book').
         displayType: '@',
         isbn: '@'
       },
-      controller: ['$scope', 'isbnFetcher', function($scope, isbnFetcher) {
+      controller: ['$scope', '$log', 'isbnFetcher', function($scope, $log, isbnFetcher) {
         $scope.displayType = defaultDisplayType;
         $scope.book = {}
         $scope.getISBN = function(isbn) {
@@ -20,6 +20,7 @@ angular.module('book').
               $scope.book = book;
             }, function(reason) {
               alertService.AddAlert('error', 'Could not find ISBN '.concat($scope.isbn));
+              $log.info(reason);
             });
           }
         };

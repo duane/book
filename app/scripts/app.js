@@ -10,7 +10,7 @@ angular.module('book', [
   'book.isbnFetcher'
 ]).
 config(function(isbnFetcherProvider) {
-  isbnFetcherProvider.fetcherBackendService('mockFetcher');
+  isbnFetcherProvider.fetcherBackendService('simpleFetcher');
 }).
 config(function($routeProvider) {
     $routeProvider.when('/', {

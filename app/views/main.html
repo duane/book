@@ -1,4 +1,3 @@
-<div class="hero-unit" ng-controller="BookShelfCtrl">
-  <button class="btn btn-small" ng-click="BulkFetch()">Bulk Fetch</button>
-  <book-display ng-repeat="book in books"></book-display>
+<div ng-controller="BookShelfCtrl">
+  <book-display ng-repeat="isbn in isbns" ng-attr-isbn="{{isbn}}"></book-display>
 </div>
