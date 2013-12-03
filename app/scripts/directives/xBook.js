@@ -7,13 +7,14 @@ angular.module('book').
     return {
       templateUrl: 'views/xBook.html',
       restrict: 'AECM',
+      replace: true,
       scope: {
         displayType: '@',
         isbn: '@'
       },
       controller: ['$scope', '$log', 'isbnFetcher', function($scope, $log, isbnFetcher) {
         $scope.displayType = defaultDisplayType;
-        $scope.book = {}
+        $scope.book = {};
         $scope.getISBN = function(isbn) {
           if (isbn) {
             isbnFetcher.fetchFirst(isbn).then(function(book) {
@@ -25,14 +26,16 @@ angular.module('book').
           }
         };
       }],
-      link: function(scope, element, attrs) {
-        scope.getISBN(scope.isbn);
-        scope.$watch('isbn', scope.getISBN);
-        scope.$watch('displayType', function(newType, oldType) {
-          element.toggleClass('display-type-'.concat(oldType), false);
-          element.toggleClass('display-type-'.concat(newType), true);
-          element.attr('display-type', newType);
+      link: function(scope, element, $attr) {
+        $attr.$observe('display-type', function(type) {
+          scope.displayType = type ? type : defaultDisplayType;
         });
+
+        scope.$watch('displayType', function(newType, oldType) {
+          $attr.$set('display-type', newType ? newType : defaultDisplayType);
+        });
+
+        scope.$watch('isbn', scope.getISBN);
       }
     };
   });

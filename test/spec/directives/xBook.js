@@ -56,42 +56,42 @@ describe('Directive: xBook', function() {
 
   it('should apply the title and artist classes', function() {
     expect(elm.hasClass('book'));
-    expect(elm.find('.book .title').length).toBe(1);
-    expect(elm.find('.book .authors').length).toBe(1);
+    expect(elm.find('.title').length).toBe(1);
+    expect(elm.find('.authors').length).toBe(1);
   });
 
   it('should populate the title & authors', function() {
-    expect(elm.find('.book .title').text()).toBe('The Art of Computer Programming');
-    expect(elm.find('.book .authors').text()).toBe('Donald Ervin Knuth');
+    expect(elm.find('.title').text()).toBe('The Art of Computer Programming');
+    expect(elm.find('.authors').text()).toBe('Donald Ervin Knuth');
   });
 
-  it('should have the class display-type-{{display-type}} set', function() {
-    expect(elm.hasClass('display-type-row'));
-    expect(!elm.hasClass('display-type-block'));
+  it('should have the display-type set', function() {
+    expect(elm.attr('display-type')).toBe('row');
+    expect(elm.attr('display-type')).not.toBe('block');
 
     scope.$apply(function() {
       scope.displayType = 'block';
     });
 
-    expect(!elm.hasClass('display-type-row'));
-    expect(elm.hasClass('display-type-block'));
+    expect(elm.attr('display-type')).toBe('block');
+
     scope.$apply(function() {
       scope.displayType = 'row';
     });
-    expect(elm.hasClass('display-type-row'));
-    expect(!elm.hasClass('display-type-block'));
+
+    expect(elm.attr('display-type')).toBe('row');
   });
 
   it('should have a displayed <img> tag iff it has a thumbnail', function() {
-    expect(elm.find('img.book-thumbnail').length).toBe(1);
-    expect(elm.find('.thumbnail-missing').length).toBe(0);
+    expect(elm.find('.book-thumbnail img').length).toBe(1);
+    expect(elm.find('.book-thumbnail .missing').length).toBe(0);
 
     elm.isolateScope().$apply(function() {
       elm.isolateScope().isbn = no_thumbnail_isbn;
     });
 
-    expect(elm.find('img.book-thumbnail').length).toBe(0);
-    expect(elm.find('.thumbnail-missing').length).toBe(1);
+    expect(elm.find('.book-thumbnail img').length).toBe(0);
+    expect(elm.find('.book-thumbnail .missing').length).toBe(1);
   });
 
 });

@@ -3,7 +3,7 @@ $bookWidth: 128px;
 $bookHeight: $bookWidth / $bookRatio;
 
 
-.book .row {
+.book[display-type="row"] {
   border: 1px black solid;
 
   .book-thumbnail {
