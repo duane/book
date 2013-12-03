@@ -4,7 +4,9 @@ describe('Directive: xBook', function() {
   var elm;
   var thumbnail_isbn = '9780321534965',
       no_thumbnail_isbn = '9780262032933';
-  var scope;
+  var scope,
+      rootScope,
+      compile;
 
   beforeEach(module('book','app/views/xBook.html'));
 
@@ -39,10 +41,14 @@ describe('Directive: xBook', function() {
   });
 
   beforeEach(inject(function($templateCache, $rootScope, $compile, $interpolate) {
+    rootScope = $rootScope;
+    compile = $compile;
+
     var template = $templateCache.get('app/views/xBook.html');
     $templateCache.put('views/xBook.html', template);
 
     elm = angular.element($interpolate('<book-display isbn="{{isbn}}"></book-display>')({isbn: thumbnail_isbn}));
+    //blockElm = angular.element($interpolate('<book-display isbn="{{isbn}}" display-type="block"></book-display>')({isbn: thumbnail_isbn}));
 
     $compile(elm)($rootScope);
     $rootScope.$digest();
@@ -80,6 +86,13 @@ describe('Directive: xBook', function() {
     });
 
     expect(elm.attr('display-type')).toBe('row');
+  });
+
+  it('should read displayType from element if it exists', function() {
+    var blockElm = angular.element('<book-display display-type="block"></book-display>');
+    compile(blockElm)(rootScope);
+    rootScope.$digest();
+    expect(blockElm.isolateScope().displayType).toBe('block');
   });
 
   it('should have a displayed <img> tag iff it has a thumbnail', function() {

@@ -3,30 +3,36 @@ $bookWidth: 128px;
 $bookHeight: $bookWidth / $bookRatio;
 
 
-.book[display-type="row"] {
-  border: 1px black solid;
+.book{
+  &[display-type="row"] {
+    border: 1px black solid;
 
-  .book-thumbnail {
-    margin: 10px;
+    .book-thumbnail {
+      margin: 10px;
 
-    float: left;
-    .present {
-      display: block;
-      width: $bookWidth;
+      float: left;
+      .present {
+        display: block;
+        width: $bookWidth;
+      }
+
+      .missing {
+        width: $bookWidth;
+        height: $bookHeight;
+        background: #4444FF;
+      }
     }
 
-    .missing {
-      width: $bookWidth;
-      height: $bookHeight;
-      background: #4444FF;
+    .content {
+      margin: 10px;
+    }
+
+    .footer {
+      clear: both;
     }
   }
 
-  .content {
-    margin: 10px;
-  }
-
-  .footer {
-    clear: both;
+  &[display-type="block"] {
+    
   }
 }

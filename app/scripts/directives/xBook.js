@@ -13,7 +13,7 @@ angular.module('book').
         isbn: '@'
       },
       controller: ['$scope', '$log', 'isbnFetcher', function($scope, $log, isbnFetcher) {
-        $scope.displayType = defaultDisplayType;
+        $scope.displayType = $scope.displayType || defaultDisplayType;
         $scope.book = {};
         $scope.getISBN = function(isbn) {
           if (isbn) {
@@ -26,13 +26,18 @@ angular.module('book').
           }
         };
       }],
-      link: function(scope, element, $attr) {
-        $attr.$observe('display-type', function(type) {
+      link: function(scope, element, attrs) {
+        var displayTypeAttr = attrs.$attr['displayType'] || 'display-type';
+        if ('displayType' in attrs) {
+          scope.displayType = attrs['displayType'];
+        }
+
+        attrs.$observe('displayType', function(type) {
           scope.displayType = type ? type : defaultDisplayType;
         });
 
         scope.$watch('displayType', function(newType, oldType) {
-          $attr.$set('display-type', newType ? newType : defaultDisplayType);
+          attrs.$set(displayTypeAttr, newType ? newType : defaultDisplayType);
         });
 
         scope.$watch('isbn', scope.getISBN);
